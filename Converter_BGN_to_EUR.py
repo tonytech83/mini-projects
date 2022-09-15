@@ -1,9 +1,10 @@
-#   GUI application - Converter from BGN to EUR
+# GUI application - Converter from BGN to EUR
 
-#   Import library
+# import library - tkinter
 import tkinter as tk
 
-#   Create graphic app with rectangular frame (Frame)
+
+# create graphic app with rectangular frame (Frame)
 class Application(tk.Frame):
     def __init__(self, master=None):
         super().__init__(master)
@@ -13,9 +14,9 @@ class Application(tk.Frame):
 
     def create_widgets(self):
         #   create widgets
-        self.label = tk.Label(text="Value Converter")
+        self.label = tk.Label(text="Еnter the amount")
         self.numberEntry = tk.Entry()
-        self.converterButton = tk.Button(text="Converter", command=self.convert)
+        self.converterButton = tk.Button(text="Convert", command=self.convert)
         self.output = tk.Label()
         #   place widgets
         self.label.pack(side="left")
@@ -28,13 +29,15 @@ class Application(tk.Frame):
 
         try:
             value = float(entry)
-            result = round(value * 1.95583, 2)
+            result = round(value * 0.51129188, 2)
             self.output.config(text=str(value) + " BGN = " + str(result) + " EUR", bg="green", fg="white")
         except ValueError:
             self.output.config(text="That's not a number!", bg="red", fg="black")
-#   Create the application
+
+
+# create the application
 app = Application()
 app.master.title("BGN to EUR Converter")
 
-#   Start the program
+# start the program
 app.mainloop()
