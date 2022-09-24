@@ -2,6 +2,12 @@
 
 # import library - tkinter
 import tkinter as tk
+from forex_python.converter import CurrencyRates
+
+# ake current rate
+c = CurrencyRates()
+current_rate = c.get_rate('USD', 'EUR', )
+print(current_rate)
 
 
 # create graphic app with rectangular frame (Frame)
@@ -24,12 +30,13 @@ class Application(tk.Frame):
         self.converterButton.pack(side="left")
         self.output.pack(side="left")
 
-    def convert(self):
+    def convert(self, current_rate):
         entry = self.numberEntry.get()
 
         try:
             value = float(entry)
-            result = round(value * 0.51129188, 2)
+
+            result = round(value * current_rate, 2)
             self.output.config(text=str(value) + " BGN = " + str(result) + " EUR", bg="green", fg="white")
         except ValueError:
             self.output.config(text="That's not a number!", bg="red", fg="black")
