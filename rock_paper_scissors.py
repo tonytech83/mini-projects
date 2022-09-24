@@ -23,4 +23,4 @@ while player_move != 'e':
 
     player_move = input('Choose [r]ock, [p]aper, [s]cissors or [e]nd: ')
 
-print(f'---------------------\nResult is:\nWins: {your_wins}\nLoses: {your_loses}\nDraws: {draws}')
+print(f'---------------------\nThe final result is:\nWins: {your_wins}\nLoses: {your_loses}\nDraws: {draws}')
