@@ -2,12 +2,10 @@
 
 # import library - tkinter
 import tkinter as tk
-from forex_python.converter import CurrencyRates
 
 # ake current rate
-c = CurrencyRates()
-current_rate = c.get_rate('USD', 'EUR', )
-print(current_rate)
+
+current_rate = 0.5112
 
 
 # create graphic app with rectangular frame (Frame)
@@ -28,9 +26,9 @@ class Application(tk.Frame):
         self.label.pack(side="left")
         self.numberEntry.pack(side="left")
         self.converterButton.pack(side="left")
-        self.output.pack(side="left")
+        self.output.pack(side='bottom')
 
-    def convert(self, current_rate):
+    def convert(self):
         entry = self.numberEntry.get()
 
         try:
