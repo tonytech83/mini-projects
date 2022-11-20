@@ -18,7 +18,7 @@ def test_to_speech(text, lang='english'):
     engine.runAndWait()
 
 
-label = Label(root, text="Еnter your text here:")
+label = Label(root, text="Enter your text here:")
 label.pack()
 textEntry = Entry(root, width=50)
 textEntry.pack()

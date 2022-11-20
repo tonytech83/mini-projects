@@ -20,7 +20,7 @@ class App(tk.Frame):
 
     def create_widgets(self):
         #   create widgets
-        self.label = tk.Label(text="Еnter your text here:")
+        self.label = tk.Label(text="Enter your text here:")
         self.textEntry = tk.Entry()
         self.executeButton = tk.Button(text="Execute", command=self.execution)
         #   place widgets
