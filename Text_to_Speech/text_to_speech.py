@@ -1,5 +1,12 @@
 import pyttsx3
-import tkinter as tk
+from tkinter import *
+
+root = Tk()
+
+
+def execution():
+    entry = textEntry.get()
+    test_to_speech(entry)
 
 
 def test_to_speech(text, lang='english'):
@@ -11,30 +18,12 @@ def test_to_speech(text, lang='english'):
     engine.runAndWait()
 
 
-class App(tk.Frame):
-    def __init__(self, master=None):
-        super().__init__(master)
-
-        self.pack()
-        self.create_widgets()
-
-    def create_widgets(self):
-        #   create widgets
-        self.label = tk.Label(text="Еnter your text here:")
-        self.textEntry = tk.Entry()
-        self.executeButton = tk.Button(text="Execute", command=self.execution)
-        #   place widgets
-        self.label.pack(side="left")
-        self.textEntry.pack(side="left")
-        self.executeButton.pack(side="left")
-
-    def execution(self):
-        entry = self.textEntry.get()
-        test_to_speech(entry)
-
-
-app = App()
-app.master.title("Text to Speech")
+label = Label(root, text="Еnter your text here:")
+label.pack()
+textEntry = Entry(root, width=50)
+textEntry.pack()
+executeButton = Button(root, text="Execute", command=execution)
+executeButton.pack()
 
 # start the program
-app.mainloop()
+root.mainloop()
