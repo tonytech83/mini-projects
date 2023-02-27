@@ -1,0 +1,1 @@
+﻿ping.exe -t 192.168.1.1 |Foreach{"{0} - {1}" -f (Get-Date),$_} >> c:\Temp\Ping_IP.txt
