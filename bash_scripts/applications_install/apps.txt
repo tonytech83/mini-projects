@@ -1,3 +1,6 @@
 neofetch
 htop
 keepassxc
+snapd
+core
+pycharm-community --classic
