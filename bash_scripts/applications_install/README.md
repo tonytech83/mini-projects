@@ -1,6 +1,6 @@
-## 1. Debian application install script.
+# 1. Debian application install script.
 
-1. Create a text file named apps.txt and list all the applications you want to install, one per line. For example:
+### 1. Create a text file named **apt_apps.txt** and list all the applications you want to install via **APT**, one per line. For example:
 
 ```plain
 vim
@@ -9,16 +9,25 @@ git
 firefox
 ```
 
-2. Download script named apps_install.sh
+### 2. Create a text file named **snap_apps.txt** and list all the applications you want to install via **SNAP**, one per line. For example:
+```plain
+core
+pycharm-community --classic
+code --classic
+obsidian --classic
+postman
+brave
+```
+### 3. Download script named **apps_install.sh**
 ```bash
 wget https://raw.githubusercontent.com/tonytech83/mini-projects/main/bash_scripts/applications_install/apps_install.sh
 ```
-3. Make the script executable:
+### 4. Make the script executable:
 
 ```bash
 chmod +x apps_install.sh
 ```
-4. Run the script as root:
+### 5. Run the script as root:
 ```bash
 sudo ./apps_isntall.sh
 ```
