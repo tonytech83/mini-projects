@@ -1,0 +1,6 @@
+core
+pycharm-community --classic
+code --classic
+obsidian --classic
+postman
+brave

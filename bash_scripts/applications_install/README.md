@@ -10,6 +10,9 @@ firefox
 ```
 
 2. Download script named apps_install.sh
+```bash
+wget https://raw.githubusercontent.com/tonytech83/mini-projects/main/bash_scripts/applications_install/apps_install.sh
+```
 3. Make the script executable:
 
 ```bash

@@ -15,7 +15,7 @@ fi
 # Update the package list
 apt-get update
 
-# Read the apps.txt file and install each app
+# Read the apt_apps.txt file and install each app
 while IFS= read -r app; do
     echo "Installing $app..."
     apt-get install -y "$app"
@@ -25,10 +25,17 @@ while IFS= read -r app; do
         echo "Error installing $app. Skipping and continuing with the next app."
     fi
 
-done < apps.txt
+done < apt_apps.txt
 
-# Install PyCharm
-snap install core
-snap install pycharm-community --classic
+# Read the snap_apps.txt file and install each app
+while IFS= read -r app; do
+  echo "Installing $app..."
+  snap install "$app"
+
+  if [ $? -ne 0 ]; then
+    echo "Error installing $app. Skipping and continuing with the next app."
+  fi
+
+done < snap_apps.txt
 
 echo "Installation process completed!"
