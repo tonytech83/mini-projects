@@ -27,4 +27,8 @@ while IFS= read -r app; do
 
 done < apps.txt
 
+# Install PyCharm
+snap install core
+snap install pycharm-community --classic
+
 echo "Installation process completed!"
