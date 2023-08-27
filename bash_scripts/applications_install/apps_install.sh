@@ -6,9 +6,15 @@ if [ "$EUID" -ne 0 ]; then
     exit
 fi
 
-# Check if the file apps.txt exists
-if [ ! -f apps.txt ]; then
-    echo "apps.txt not found!"
+# Check if the file apt_apps.txt exists
+if [ ! -f apt_apps.txt ]; then
+    echo "apt_apps.txt not found!"
+    exit
+fi
+
+# Check if the file snap_apps.txt exists
+if [ ! -f snap_apps.txt ]; then
+    echo "snap_apps.txt not found!"
     exit
 fi
 
