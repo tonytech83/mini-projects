@@ -1,4 +1,9 @@
-### PowerShell template profile 
+### PowerShell template profile
+
+# Prediction History with list view of predictions
+Set-PSReadLineOption -PredictionSource History
+Set-PSReadLineOption -PredictionViewStyle ListView
+Set-PSReadLineOption -EditMode Windows
 
 # Find out if the current user identity is elevated (has admin rights)
 $identity = [Security.Principal.WindowsIdentity]::GetCurrent()

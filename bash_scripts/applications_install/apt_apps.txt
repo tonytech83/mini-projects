@@ -2,3 +2,4 @@ neofetch
 htop
 keepassxc
 snapd
+net-tools
