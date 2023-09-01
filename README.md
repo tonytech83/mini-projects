@@ -1,1 +1,1 @@
-# Python_mini_projects
+# Some scripts on different languages
