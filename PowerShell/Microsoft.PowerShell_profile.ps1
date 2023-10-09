@@ -143,37 +143,47 @@ function myip {
 }
 # Help function - gives a breaf description on some of the functions
 function help_ {
+        $left = ''
+        for ($i = 0; $i -lt 10; $i++) {
+                $left += [char]0x02501
+        }
+        
+        $left += ' '
+
         $commands = @{
-                "admin"         = "- Simple function to start a new elevated process. If arguments are supplied then
+                "admin"          = "- Simple function to start a new elevated process. If arguments are supplied then 
 a single command is started with admin rights; if not then a new admin instance
 of PowerShell is started."
-                "df"            = "- Get information about all volumes on device"
-                "disk_clean"    = "- Remove the temp files in AppData\Local\Temp"
-                "htop"          = "- Quick shortcut to start btop4win"
-                "ll"            = "- List only files under current directory"
-                "ls"            = "- List all files and directories under current directory"
-                "myip"          = "- Get local network settings and external IP address"
-                "net_cls"       = "- Total reset all network settings for current Ethernet adapter"
-                "pgrep"         = "- Get information for process / pgrep brave /"
-                "pkill"         = "- Kill proccess by name / pkill brave /"
-                "reload-profile"= "- Reload PowerShell prifile"
-                "rdcman"        = "- Quick shortcut to start Remoute Desktop Connection Manager"
-                "touch"         = "- Creates new file / touch example.txt /"
-                "uptime"        = "- Get device uptime"
+                "df"             = "- Get information about all volumes on device"
+                "disk_clean"     = "- Remove the temp files in AppData\Local\Temp"
+                "htop"           = "- Quick shortcut to start btop4win"
+                "ll"             = "- List only files under current directory"
+                "ls"             = "- List all files and directories under current directory"
+                "myip"           = "- Get local network settings and external IP address"
+                "net_cls"        = "- Total reset all network settings for current Ethernet adapter"
+                "pgrep"          = "- Get information for process / pgrep brave /"
+                "pkill"          = "- Kill proccess by name / pkill brave /"
+                "reload-profile" = "- Reload PowerShell prifile"
+                "rdcman"         = "- Quick shortcut to start Remoute Desktop Connection Manager"
+                "touch"          = "- Creates new file / touch example.txt /"
+                "uptime"         = "- Get device uptime"
         }
-
+              
         $sortedCommands = $commands.Keys | Sort-Object
         Write-Host
-
+              
         foreach ($command in $sortedCommands) {
-                $underlineCount = 74 - $command.Length
-                $underline = "_" * $underlineCount
-
-                Write-Host "_____" -NoNewline
-                Write-Host " $command " -ForegroundColor Red -NoNewline
-                Write-Host $underline
+                $rightCount = 120 - $left.Length - 1 - $command.Length - 1
+                $right = ' '
+                for ($i = 0; $i -lt $rightCount; $i++ ) {
+                        $right += [char]0x02501
+                } 
+                
+                Write-Host $left -NoNewline
+                Write-Host "`e[1m$command`e[0m" -ForegroundColor Red -NoNewline
+                Write-Host $right
                 Write-Host $commands[$command]
-                Write-Host
+                Write-Host      
         }
 
 }
