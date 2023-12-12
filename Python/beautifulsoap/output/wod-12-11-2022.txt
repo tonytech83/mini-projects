@@ -1,0 +1,13 @@
+<div class="single-post-wrap entry-content"><p><strong><em>REST DAY</em></strong></p>
+<hr/>
+<p><strong><em>Active recovery:</em></strong></p>
+<hr/>
+<ul>
+<li><em>Run</em></li>
+<li><em>Row</em></li>
+<li><em>Hike</em></li>
+<li><em>Sleep</em></li>
+</ul>
+<hr/>
+<p> </p>
+</div>

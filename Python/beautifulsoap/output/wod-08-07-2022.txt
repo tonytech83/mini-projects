@@ -1,0 +1,23 @@
+<div class="single-post-wrap entry-content"><hr/>
+<p><strong>Strength</strong></p>
+<hr/>
+<p><strong>Every 90 seconds x 5 rounds</strong></p>
+<hr/>
+<p><span style="font-weight: 400;">3 deadlift (70%)</span></p>
+<p><span style="font-weight: 400;">3 deficit handstand push-ups </span></p>
+<p><span style="font-weight: 400;">20 double-unders</span></p>
+<hr/>
+<p><strong>Rest 3 minutes</strong></p>
+<hr/>
+<p><strong>AMRAP 18 minutes </strong></p>
+<p><span style="font-weight: 400;">5 wall walk</span></p>
+<p><span style="font-weight: 400;">10 deadlift (50%)</span></p>
+<p><span style="font-weight: 400;">15 handstand push-ups </span></p>
+<p><span style="font-weight: 400;">20 box jump over </span></p>
+<p><span style="font-weight: 400;">30 double-unders</span></p>
+<hr/>
+<p><strong>Rest 1 minutes between rounds</strong></p>
+<hr/>
+<p> </p>
+<p> </p>
+</div>
