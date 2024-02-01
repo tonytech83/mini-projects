@@ -1,16 +1,15 @@
-# This is a sample Python script.
+"""
+Rename the files form "wod-day-month-year.txt" to "year-month-day.txt"
+"""
+import os
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+os.chdir('./output')
+print(os.getcwd())
 
+for idx, f in enumerate(os.listdir()):
+    f_name, f_ext = os.path.splitext(f)
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    if f_ext != '.zip':
+        wod, day, month, year = f_name.split('-')
+        new_name = f'{year}-{month}-{day}{f_ext}'
+        os.rename(f, new_name)
