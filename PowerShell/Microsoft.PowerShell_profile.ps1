@@ -12,13 +12,13 @@ $identity = [Security.Principal.WindowsIdentity]::GetCurrent()
 $principal = New-Object Security.Principal.WindowsPrincipal $identity
 $isAdmin = $principal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
 
-# If so and the current host is a command line, then change to red color
+# If so and the current host is a command line, then change to red color 
 # as warning to user that they are operating in an elevated context
 # Useful shortcuts for traversing directories
 function cd... { cd ..\.. }
 function cd.... { cd ..\..\.. }
 
-# Compute file hashes - useful for checking successful downloads
+# Compute file hashes - useful for checking successful downloads 
 function md5 { Get-FileHash -Algorithm MD5 $args }
 function sha1 { Get-FileHash -Algorithm SHA1 $args }
 function sha256 { Get-FileHash -Algorithm SHA256 $args }
@@ -37,12 +37,12 @@ if (Test-Path "$env:USERPROFILE\Work Folders") {
         function Work: { Set-Location Work: }
 }
 
-# Set up command prompt and window title. Use UNIX-style convention for identifying
+# Set up command prompt and window title. Use UNIX-style convention for identifying 
 # whether user is elevated (root) or not. Window title shows current version of PowerShell
 # and appends [ADMIN] if appropriate for easy taskbar identification
-function prompt {
+function prompt { 
         if ($isAdmin) {
-                "[" + (Get-Location) + "] # "
+                "[" + (Get-Location) + "] # " 
         }
         else {
                 "[" + (Get-Location) + "] $ "
@@ -64,11 +64,11 @@ function dirs {
         }
 }
 
-# Simple function to start a new elevated process. If arguments are supplied then
+# Simple function to start a new elevated process. If arguments are supplied then 
 # a single command is started with admin rights; if not then a new admin instance
 # of PowerShell is started.
 function admin {
-        if ($args.Count -gt 0) {
+        if ($args.Count -gt 0) {   
                 $argList = "& '" + $args + "'"
                 Start-Process "$psHome\pwsh.exe" -Verb runAs -ArgumentList $argList
         }
@@ -78,9 +78,12 @@ function admin {
 }
 
 # Set UNIX-like aliases for the admin command, so sudo <command> will run the command
-# with elevated rights.
+# with elevated rights. 
 Set-Alias -Name su -Value admin
 Set-Alias -Name sudo -Value admin
+Set-Alias -Name clr -Value clear
+
+# Set-Alias winfetch neofetch
 
 
 # Make it easy to edit this profile once it's installed
@@ -93,22 +96,31 @@ function Edit-Profile {
         }
 }
 
-# We don't need these any more; they were just temporary variables to get to $isAdmin.
-# Delete them to prevent cluttering up the user profile.
+# We don't need these any more; they were just temporary variables to get to $isAdmin. 
+# Delete them to prevent cluttering up the user profile. 
 Remove-Variable identity
 Remove-Variable principal
 
 # Quick shortcut to start Remoute Desktop Connection Manager
 function rdcman {
-        C:\Tools\RDCMan\RDCMan.exe
+        C:\Tools\RDCMan\RDCMan.exe       
 }
+
+# Function to start Sublime Text and open the specified path
+# function subl {
+#         param(
+#             [string]$path = "."
+#         )
+#         $fullPath = (Resolve-Path -Path $path).Path
+#         Start-Process "C:\Program Files\Sublime Text\sublime_text.exe" -ArgumentList $fullPath
+#     }
 
 # Quick shortcut to start btop4win
 function htop {
         C:\Tools\btop4win\btop4win.exe
 }
 
-function disk_clean {
+function disk_clean {              
         #Remove the temp files in AppData\Local\Temp
         Remove-Item -Path $env:TEMP\* -Recurse -Force -ErrorAction SilentlyContinue
 
@@ -116,8 +128,48 @@ function disk_clean {
         cleanmgr /sagerun:1 /VeryLowDisk /AUTOCLEAN | Out-Null
 }
 function net_cls {
-        ipconfig /release & ipconfig /renew & ipconfig /flushdns
+        ipconfig /release & ipconfig /renew & ipconfig /flushdns        
 }
+
+# Check the status of some familiar websites
+function online {
+        $siteList = @(
+                "https://www.google.com",
+                "https://www.abv.bg",
+                "https://www.cars.bg",
+                "https://www.office.com",
+                "https://www.myworkday.com/aes/d/home.htmld",
+                "https://www.yahoo.com",
+                "https://www.youtube.com",
+                "https://www.gmail.com"
+        )
+
+        foreach ($site in $siteList) {
+                try {
+                        $responce = Invoke-WebRequest -Uri $site -UseBasicParsing -TimeoutSec 10
+                        $result = $responce.StatusCode
+                }
+                catch {
+                        $result = "Failed"
+                }
+
+                if ($result -eq 200) {
+                        $result = "OK"
+                        $boldGreenSuccess = "`e[1;32m$result`e[0m"
+                         
+                        Write-Host "[$boldGreenSuccess]" -NoNewline
+                        Write-Host "     $site"
+                } else {
+                        $boldRedFailed = "`e[1;31mFailed`e[0m"
+                        
+                        Write-Host "[$boldRedFailed]"  -NoNewline
+                        Write-Host " $site"
+                }
+        }
+
+        Write-Host "--------------------------------------"
+}
+
 # Get local network settings and external IP address
 function myip {
         $ip = (Get-WmiObject Win32_NetworkAdapterConfiguration).IPAddress
@@ -126,11 +178,11 @@ function myip {
         $dns = (Get-WmiObject Win32_NetworkAdapterConfiguration).DNSServerSearchOrder
         $domain = (Get-WmiObject Win32_NetworkAdapterConfiguration).DNSDomain
         $pub_ip = (Invoke-WebRequest -uri "http://ifconfig.me/ip").Content
-
+        
         if ($ip) {
                 Write-Host
                 Write-Host "Local:" -ForegroundColor DarkCyan
-                Write-Host "IPv4 Address:         "$ip
+                Write-Host "IPv4 Address:         "$ip  
                 Write-Host "IPv4 Subnet Mask:     "$mask
                 Write-Host "IPv4 Default Gateway: "$gateway
                 Write-Host "IPv4 DNS Server:      "$dns
@@ -141,7 +193,7 @@ function myip {
                 Write-Host
         }
 }
-# Help function - gives a breaf description on some of the functions
+# Help function - TODO
 function help_ {
         $left = ''
         for ($i = 0; $i -lt 10; $i++) {
@@ -167,6 +219,7 @@ of PowerShell is started."
                 "rdcman"         = "- Quick shortcut to start Remoute Desktop Connection Manager"
                 "touch"          = "- Creates new file / touch example.txt /"
                 "uptime"         = "- Get device uptime"
+                "pwsup"          = "- Upgrading PowerShell to last stable version"
         }
               
         $sortedCommands = $commands.Keys | Sort-Object
@@ -185,12 +238,13 @@ of PowerShell is started."
                 Write-Host $commands[$command]
                 Write-Host      
         }
-
 }
 
 
 function ll { Get-ChildItem -Path $pwd -File }
-function g { cd $HOME\Documents\Github }
+
+# Not in use
+# function g { cd $HOME\Documents\Github }
 function gcom {
         git add .
         git commit -m "$args"
@@ -205,7 +259,7 @@ function uptime {
         $bootuptime = (Get-CimInstance -ClassName Win32_OperatingSystem).LastBootUpTime
         $uptime = $CurrentDate - $bootuptime
         Write-Host
-        Write-Host "Device uptime:" -ForegroundColor DarkCyan
+        Write-Host "Meanmachine uptime:" -ForegroundColor DarkCyan
         Write-Host $($uptime.days)"days" $($uptime.Hours)"hours" $($uptime.Minutes)"minutes"
         Write-Host
 }
@@ -252,13 +306,28 @@ function pgrep($name) {
         ps $name
 }
 
+# func upgrading powershell to last stable version
+function pwsup {
+        iex "& { $(irm https://aka.ms/install-powershell.ps1) } -UseMSI"     
+}
+
+# Enchanced PowerShell Expirience
+Set-PSReadLineOption -Colors @{
+        Command   = 'Yellow'
+        Parameter = 'Green'
+        String    = 'DarkCyan'
+}
+
 
 ## Final Line to set prompt
-oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH\capr4n.omp.json" | Invoke-Expression
-# oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH\space.omp.json" | Invoke-Expression
-# oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH\slimfat.omp.json" | Invoke-Expression
-# oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH\rudolfs-dark.omp.json" | Invoke-Expression
-
+# oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH\catppuccin_mocha.omp.json" | Invoke-Expression # <--
+# oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH\my_illusi0n.omp.json" | Invoke-Expression # good one
+oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH\my_di4am0nd.omp.json" | Invoke-Expression
 
 # Add icons
 Import-Module -Name Terminal-Icons
+
+# Added `z` instead `cd`
+Invoke-Expression (& { (zoxide init powershell | Out-String) })
+
+
