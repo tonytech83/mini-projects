@@ -1,5 +1,7 @@
 #!/bin/bash
 
+$dashes = "---------------------------------------------------------------"
+
 # Check if the script is run as root
 if [ "$EUID" -ne 0 ]; then
     echo "Please run as root"
@@ -31,7 +33,18 @@ while IFS= read -r app; do
         echo "Error installing $app. Skipping and continuing with the next app."
     fi
 
+    echo $dashes
+
 done < apt_apps.txt
+
+# Install snapd
+sudo apt install snapd -y
+
+# Enable Snap support
+sudo systemctl enable --now snapd.apparmor
+
+# Create a symbolic link between /var/lib/snapd/snap and /snap:
+sudo ln -s /var/lib/snapd/snap /snap
 
 # Read the snap_apps.txt file and install each app
 while IFS= read -r line; do
@@ -42,6 +55,8 @@ while IFS= read -r line; do
     echo "Error installing $line. Skipping and continuing with the next app."
   fi
 
+  echo $dashes
+
 done < snap_apps.txt
 
-echo "Installation process completed!"
+echo "Installation process completed! You can reboot your device to finished the installation."
