@@ -20,7 +20,7 @@ brave
 ```
 ### 3. Download script named **apps_install.sh**
 ```bash
-wget https://raw.githubusercontent.com/tonytech83/mini-projects/main/bash_scripts/applications_install/apps_install.sh
+wget https://github.com/tonytech83/mini-projects/blob/main/Bash/applications_install/apps_install.sh
 ```
 ### 4. Make the script executable:
 
