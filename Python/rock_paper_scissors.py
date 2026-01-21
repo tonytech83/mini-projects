@@ -14,20 +14,27 @@ while player_move != "e":
         player_move = "paper"
     elif player_move == "s":
         player_move = "scissors"
+
+    # Handle invalid input early
+    if player_move not in computer_options:
+        print("Invalid move. Please choose 'r', 'p', 's', or 'e'.")
+        player_move = input("Choose [r]ock, [p]aper, [s]cissors or [e]nd: ")
+        continue  # Skip to the next iteration
+
     computer_move = random.choice(computer_options)
     print(f"Your chose: {player_move}")
     print(f"Computer chose: {computer_move}")
+
+    winning_combinations = {
+        "rock": "scissors",
+        "paper": "rock",
+        "scissors": "paper",
+    }
+
     if player_move == computer_move:
         draws += 1
         print(">>> Draw! <<<")
-    elif (
-        player_move == "rock"
-        and computer_move == "scissors"
-        or player_move == "paper"
-        and computer_move == "rock"
-        or player_move == "scissors"
-        and computer_move == "paper"
-    ):
+    elif winning_combinations[player_move] == computer_move:
         your_wins += 1
         print(">>> You win! <<<")
     else:
