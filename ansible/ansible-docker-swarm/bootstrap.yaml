@@ -1,0 +1,56 @@
+---
+- name: Bootstrap ansible user on all nodes
+  hosts: all
+  become: false        # connecting as root directly, no sudo needed
+
+  vars:
+    ansible_pub_key: "{{ lookup('file', '~/.ssh/ansible-ssh-key.pub') }}"
+    ansible_user_name: ansible
+
+  tasks:
+    - name: Install sudo
+      ansible.builtin.apt:
+        name: sudo
+        state: present
+        update_cache: true
+
+    - name: Create ansible user
+      ansible.builtin.user:
+        name: ansible
+        shell: /bin/bash
+        create_home: true
+        state: present
+
+    - name: Create .ssh directory
+      ansible.builtin.file:
+        path: /home/ansible/.ssh
+        state: directory
+        owner: ansible
+        group: ansible
+        mode: '0700'
+
+    - name: Deploy authorized_keys
+      ansible.posix.authorized_key:
+        user: ansible
+        key: "{{ ansible_pub_key }}"
+        state: present
+
+    - name: Configure passwordless sudo
+      ansible.builtin.copy:
+        content: "{{ ansible_user_name }} ALL=(ALL) NOPASSWD: ALL\n"
+        dest: "/etc/sudoers.d/{{ ansible_user_name }}"
+        mode: '0440'
+        owner: root
+        group: root
+        validate: "visudo -cf %s"
+
+    - name: Verify passwordless sudo works
+      ansible.builtin.command: sudo -n whoami
+      become: true
+      become_user: "{{ ansible_user_name }}"
+      register: sudo_test
+      changed_when: false
+
+    - name: Report result
+      ansible.builtin.debug:
+        msg: "Passwordless sudo test: {{ sudo_test.stdout }}"

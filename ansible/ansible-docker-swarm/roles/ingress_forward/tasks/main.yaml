@@ -1,0 +1,5 @@
+---
+- name: Enable ip_forward in ingress_sbox namespace
+  ansible.builtin.command:
+    cmd: nsenter --net=/var/run/docker/netns/ingress_sbox sysctl -w net.ipv4.ip_forward=1
+  changed_when: false

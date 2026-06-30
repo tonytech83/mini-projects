@@ -1,0 +1,5 @@
+---
+- name: Start Portainer
+  community.docker.docker_compose_v2:
+    project_src: /home/ansible/docker-compose/portainer
+    state: restarted

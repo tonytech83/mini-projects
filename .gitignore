@@ -84,3 +84,6 @@ fabric.properties
 cmake-build-*/
 CMakeLists.txt
 __pycache__/
+
+# terraform
+terraform.tfvars

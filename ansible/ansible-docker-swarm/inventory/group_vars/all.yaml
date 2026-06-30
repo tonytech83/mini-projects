@@ -1,0 +1,13 @@
+# ansible vars
+ansible_user: ansible
+ansible_ssh_private_key_file: ~/.ssh/ansible-ssh-key
+ansible_become: true
+ansible_become_method: sudo
+
+# nfs share
+nfs_server: 192.168.88.4
+nfs_share: /export/swarm
+mount_point: /share
+
+# portainer vars
+portainer_data: /share/portainer_data
